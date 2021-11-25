@@ -24,9 +24,8 @@
                     continue;
                 sumSurface += surface;
                 nbSurface += 1;
-                sumPrix += record.fields.valeur_fonciere;
+                sumPrix += record.fields.valeur_fonciere || 0;
             }
-
             prixMoyenAlaSurface = (nbSurface > 0 ? sumPrix / sumSurface : 0)
         });
     }
@@ -54,8 +53,8 @@
                 {#each records as record}
                     <li>
                         <div class="ligne">
-                            <a target="_blank" href="http://maps.apple.com/?address={`${record.fields.adresse},${record.fields.commune},${record.fields.nom_dep}`}">{record.fields.adresse}</a>
-                            <div>{record.fields.valeur_fonciere.toLocaleString()} €</div>
+                            <a target="_blank" href="https://www.google.com/maps/search/{`${record.fields.adresse},${record.fields.commune},${record.fields.nom_dep}`}">{record.fields.adresse}</a>
+                            <div>{(record.fields.valeur_fonciere||0).toLocaleString(undefined,{'maximumFractionDigits':0})} €</div>
                         </div>
                         <div class="ligne">
                             <div>{new Date(record.fields.date_mutation).toDateString()}</div>
@@ -69,7 +68,7 @@
     </div>
     <div class="footer">
         <div>Prix moyen autour de vous</div>
-        <div class="val">{prixMoyenAlaSurface.toFixed(0).toLocaleString()} €/m<sup>2</sup></div>
+        <div class="val">{prixMoyenAlaSurface.toLocaleString(undefined,{'maximumFractionDigits':0})} €/m<sup>2</sup></div>
     </div>
 </div>
 

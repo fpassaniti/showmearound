@@ -45,7 +45,7 @@ const getRecord = async (domainid, datasetid, recordid) => {
         });
 }
 
-const getAround = async (domainid, datasetid, center, radius = 100, rows = 20) => {
+const getAround = async (domainid, datasetid, center, radius = 10000, rows = 50) => {
     let query = `https://${domainid}.opendatasoft.com/api/records/1.0/search?sort=-dist&geofilter.distance=${center.lat},${center.lng},${radius}&rows=${rows}&format=json&dataset=${datasetid}`;
     return fetch(query)
         .then(res => res)
